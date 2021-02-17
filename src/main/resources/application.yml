@@ -22,7 +22,7 @@ spring:
   jpa:
     open-in-view: true
     hibernate:
-      ddl-auto: create  # 프로젝트를 실행할때마다 테이블을 어떻게 할지 결정!!
+      ddl-auto: update  # 프로젝트를 실행할때마다 테이블을 어떻게 할지 결정!!
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl # 네이밍 전략
 #        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy

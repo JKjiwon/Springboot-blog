@@ -16,6 +16,7 @@ import java.sql.Timestamp;
 @Builder // 빌더 패턴
 // ORM -> JAVA(다른언어) Object -> 테이블로 맵핑해주는 기술
 @Entity // User 클래스가 MySQL에 테이블이 생성된다.
+//@DynamicInsert // Insert할 때 null인 필드는 제외!
 public class User {
     @Id //Primary Key
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 프로젝트에서 연결된 DB의 넘버링 전략을 따라간다.
@@ -30,9 +31,10 @@ public class User {
     @Column(nullable = false, length = 50)
     private String email;
 
-    @ColumnDefault("'user'")
-    private String role; // Enum을 쓰는게 좋다. // admin, user, manager 도메인(범위) 설정!!
-
+     // @ColumnDefault("'USER'")
+    // DB SMS RoleType이 없다
+    @Enumerated(EnumType.STRING)
+    private RoleType role; // Enum을 쓰는게 좋다. // ADMIN, USER 도메인(범위) 설정!!
 
     @CreationTimestamp // 유저 생성시간에 시간이 자동으로 입력된다.
     private Timestamp createDate;
