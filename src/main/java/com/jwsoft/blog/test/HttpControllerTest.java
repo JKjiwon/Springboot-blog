@@ -26,6 +26,7 @@ public class HttpControllerTest {
 
     // text/plain : @RequestBody String text
     // application/json: @RequestBody Member m
+    // Member m :
     @PostMapping("/http/post")
     public String postTest(@RequestBody Member m) { // MessageConverter(스프링부트)
         return "post 요청 : " + m.getId() + ", " + m.getUsername() + ", " + m.getEmail() + ", " + m.getPassword();

@@ -4,15 +4,14 @@ import com.jwsoft.blog.model.RoleType;
 import com.jwsoft.blog.model.User;
 import com.jwsoft.blog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -27,6 +26,7 @@ public class DummyControllerTest {
     // http 의 body에 username, password, email 데이터를 가지고 (요청)
     @PostMapping("/dummy/join")
     public String join(User user) { // key=value (약속된 규칙)
+        user.setRole(RoleType.USER);
         System.out.println("id = " + user.getId());
         System.out.println("username = " + user.getUsername());
         System.out.println("password = " + user.getPassword());
@@ -34,7 +34,6 @@ public class DummyControllerTest {
         System.out.println("role = " + user.getRole());
         System.out.println("createDate = " + user.getCreateDate());
 
-        user.setRole(RoleType.USER);
 
         userRepository.save(user);
 
@@ -80,5 +79,52 @@ public class DummyControllerTest {
         Page<User> pagingUser = userRepository.findAll(pageable);
         List<User> users = pagingUser.getContent();
         return users;
+    }
+
+//    save함수는 id를 전달하지 않으면 insert를 해주고
+//    save함수는 id를 전달하면 해당 id에 대한 데이터가 있으면 update를 해주고
+//    save함수는 id를 전달하면 해당 id에 대한 데이터가 없으면 insert를 해요.
+
+    // email, password
+    @Transactional // 함수종료시에 자동 commit이 됨
+    @PutMapping("/dummy/user/{id}")
+    public User updateUser(@PathVariable int id, @RequestBody User requestUser) { // Json 데이터 요청 => Java Object(Message Converter의 Jackson라이브러리가 변환해서 받아줌)
+
+        System.out.println("id = " + id);
+        System.out.println("password = " + requestUser.getPassword());
+        System.out.println("email = " + requestUser.getEmail());
+
+
+        User user = userRepository.findById(id).orElseThrow(() -> {
+            return new IllegalArgumentException("수정에 실패했습니다");
+        }); // 영속화 되는 시점
+
+        user.setPassword(requestUser.getPassword());
+        user.setEmail(requestUser.getEmail()); // 변경을 해야 upadate문이 수행된다.!
+
+//        userRepository.save(user);
+
+        // 더티 체킹 @Transactional
+        return user;
+    }
+
+//    @DeleteMapping("/dummy/user/{id}")
+//    public User deleteUser(@PathVariable int id){
+//        User user = userRepository.findById(id).orElseThrow(() -> {
+//            return new IllegalArgumentException("삭제에 실패했습니다");
+//        });
+//        userRepository.delete(user);
+//
+//        return user;
+//    }
+
+    @DeleteMapping("/dummy/user/{id}")
+    public String deleteUser(@PathVariable int id){
+        try {
+            userRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            return "삭제에 실패했습니다. 해당 id는 DB에 없습니다.";
+        }
+        return "삭제되었습니다. id: " + id;
     }
 }
