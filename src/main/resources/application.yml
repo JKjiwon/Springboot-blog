@@ -22,14 +22,14 @@ spring:
   jpa:
     open-in-view: true
     hibernate:
-      ddl-auto: update  # 프로젝트를 실행할때마다 테이블을 어떻게 할지 결정!!
+      ddl-auto: create  # 프로젝트를 실행할때마다 테이블을 어떻게 할지 결정!!
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl # 네이밍 전략
 #        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
       use-new-id-generator-mappings: false # jpa 가 사용하는 기본 넘버링 전략을 따라가지 않는다!
-    show-sql: true # sql 이 보이게
-    properties:
-      hibernate.format_sql: true #sql문이 예쁘게 정렬되서 보이게
+#    show-sql: true # sql 이 보이게
+#    properties:
+#      hibernate.format_sql: true #sql문이 예쁘게 정렬되서 보이게
 
   jackson:
     serialization:
@@ -40,4 +40,13 @@ spring:
       enabled: true
     livereload:
       enabled: true
+
+  profiles:
+    include: oauth
+  # 정의!!!
+  # cos:
+  #  key: ~~~
+  #  client-id: ~~~~
+
+
 

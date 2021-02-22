@@ -3,6 +3,9 @@ let index = {
         $('#btn-save').on('click', () => { // function(){} -> ()=>{} : this 를 바인딩 하기 위해서!
             this.save();
         });
+        $('#btn-update').on('click', () => { // function(){} -> ()=>{} : this 를 바인딩 하기 위해서!
+            this.update();
+        });
     },
 
     save: function () {
@@ -26,6 +29,29 @@ let index = {
             dataType: "json", // 요청을 서버로 해서 응답이 왔을 때 기본적으로 모든 것이 문자열(생긴게 json이라면) => javascript오브젝트로 변환
         }).done(function (resp) {
             alert("회원가입이 완료되었습니다.");
+            console.log(resp)
+            location.href = "/";
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+    update: function () {
+        let data = { // 자바스크립트 Object
+            id: $("#id").val(),
+            username: $("#username").val(),
+            password: $("#password").val(),
+            email: $("#email").val(),
+            oauth: $("#oauth").val(),
+        };
+
+        $.ajax({
+            type: "PUT",
+            url: "/user",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+        }).done(function (resp) {
+            alert("회원 수정이 완료되었습니다.");
             console.log(resp)
             location.href = "/";
         }).fail(function (error) {

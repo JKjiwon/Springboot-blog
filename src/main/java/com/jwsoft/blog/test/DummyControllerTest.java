@@ -1,7 +1,9 @@
 package com.jwsoft.blog.test;
 
+import com.jwsoft.blog.model.Board;
 import com.jwsoft.blog.model.RoleType;
 import com.jwsoft.blog.model.User;
+import com.jwsoft.blog.repository.BoardRepository;
 import com.jwsoft.blog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -20,6 +22,7 @@ import java.util.function.Supplier;
 public class DummyControllerTest {
 
     private final UserRepository userRepository;
+    private final BoardRepository boardRepository;
 
 
     // http://localhost:8080/blog/dummy/join (요청)
@@ -75,10 +78,17 @@ public class DummyControllerTest {
 
     // 한 페이지당 2건의 데이터를 리턴받아 볼 예정
     @GetMapping("/dummy/user")
-    public List<User> pageList(@PageableDefault(size = 2, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+    public Page<User> pageList(@PageableDefault(size = 2, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         Page<User> pagingUser = userRepository.findAll(pageable);
-        List<User> users = pagingUser.getContent();
-        return users;
+//        List<User> users = pagingUser.getContent();
+        return pagingUser;
+    }
+
+    @GetMapping("/dummy/content")
+    public Page<Board> contentList(@PageableDefault(size = 3, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<Board> pagingUser = boardRepository.findAll(pageable);
+//        List<User> users = pagingUser.getContent();
+        return pagingUser;
     }
 
 //    save함수는 id를 전달하지 않으면 insert를 해주고
