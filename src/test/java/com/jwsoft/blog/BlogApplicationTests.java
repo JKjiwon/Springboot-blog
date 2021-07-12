@@ -7,10 +7,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 
 class BlogApplicationTests {
-	@Test
-	public void create(){
-		Member member = new Member(1,null,null,null);
+    @Test
+    public void create() {
+        Member member = new Member(1, null, null, null);
 
-		Assertions.assertThat(member).isEqualTo(null);
-	}
+        Assertions.assertThat(member).isEqualTo(null);
+    }
 }

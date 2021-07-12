@@ -11,13 +11,47 @@
     <br/><br/>
     <div>
         글번호 : <span id="id"><i>${board.id} </i></span> &nbsp;&nbsp;&nbsp;
-        작성자 : <span><i>${board.user.username} </i></span>
+        작성자 : <span><i>${board.user.username} </i></span> &nbsp;&nbsp;&nbsp;
+        <%--        조회수 : <span><i>${board.count} </i></span>--%>
     </div>
     <br/>
     <div><h3>${board.title}</h3></div>
     <hr/>
     <div>${board.content}</div>
     <hr/>
+
+    <div class="card">
+        <form>
+            <input type="hidden" id="boardId" value="${board.id}">
+            <input type="hidden" id="userId" value="${principal.user.id}">
+            <div class="card-body">
+                <textarea id="reply-content" style="resize: none" class="form-control" rows="1"></textarea></div>
+            <div class="card-footer">
+                <button type="button" id="btn-reply-save" class="btn btn-primary">등록</button>
+            </div>
+        </form>
+    </div>
+    <br/>
+    <div class="card">
+        <div class="card-header">댓글 리스트</div>
+        <ul id="reply-box" class="list-group">
+            <c:forEach var="reply" items="${board.replies}">
+                <li id="reply-${reply.id}" class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>${reply.content}</div>
+                    <div class="d-flex align-items-center">
+                        <div class="font-italic" style="font-size: 18px; margin-right: 5px"><b>작성자</b>
+                            : ${reply.user.username} &nbsp;
+                        </div>
+                        <c:if test="${reply.user.id == principal.user.id}">
+                            <button onclick="index.replyDelete(${board.id}, ${reply.id})" class="btn btn-danger">삭제
+                            </button>
+                        </c:if>
+
+                    </div>
+                </li>
+            </c:forEach>
+        </ul>
+    </div>
 </div>
 
 <script src="/js/board.js"></script>

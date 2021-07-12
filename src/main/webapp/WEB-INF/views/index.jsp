@@ -12,6 +12,26 @@
             </div>
         </div>
     </c:forEach>
+    <%--    <table class="table table-horizontal table-bordered">--%>
+    <%--        <thead class="thead-strong">--%>
+    <%--        <tr>--%>
+    <%--            <th width="10%">번호</th>--%>
+    <%--            <th width="50%">제목</th>--%>
+    <%--            <th width="20%">작성자</th>--%>
+    <%--            <th width="20%">최종수정일</th>--%>
+    <%--        </tr>--%>
+    <%--        </thead>--%>
+    <%--        <tbody id="tbody">--%>
+    <%--        <c:forEach var="board" items="${boards.content}">--%>
+    <%--            <tr>--%>
+    <%--                <td>${board.id}</td>--%>
+    <%--                <td><a href="/board/${board.id}">${board.title}</a></td>--%>
+    <%--                <td>${board.user.username}</td>--%>
+    <%--                <td>${board.createDate}</td>--%>
+    <%--            </tr>--%>
+    <%--        </c:forEach>--%>
+    <%--        </tbody>--%>
+    <%--    </table>--%>
 
     <ul class="pagination justify-content-center">
         <c:choose>
@@ -44,4 +64,6 @@
         </c:choose>
     </ul>
 </div>
+
+
 <%@ include file="layout/footer.jsp" %>

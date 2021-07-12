@@ -43,7 +43,7 @@ public class UserApiController {
         String password = user.getPassword();
 
         //  Oauth 로그인을 한다면 ~
-        if (user.getOauth() != null && !user.getOauth().equals("")){
+        if (user.getOauth() != null && !user.getOauth().equals("")) {
             password = cosKey;
         }
         Authentication authentication = authenticationManager.

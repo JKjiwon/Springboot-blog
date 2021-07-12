@@ -4,7 +4,7 @@
 <div class="container">
     <form>
         <div class="form-group">
-<%--            <input type="hidden" id="id" value="${board.id}">--%>
+            <%--            <input type="hidden" id="id" value="${board.id}">--%>
             글번호 : <span id="id"><i>${board.id} </i></span> &nbsp;&nbsp;&nbsp;
             작성자 : <span><i>${board.user.username} </i></span>
         </div>

@@ -129,7 +129,7 @@ public class DummyControllerTest {
 //    }
 
     @DeleteMapping("/dummy/user/{id}")
-    public String deleteUser(@PathVariable int id){
+    public String deleteUser(@PathVariable int id) {
         try {
             userRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {

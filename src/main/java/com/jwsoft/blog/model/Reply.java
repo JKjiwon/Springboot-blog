@@ -1,5 +1,7 @@
 package com.jwsoft.blog.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.jwsoft.blog.dto.ReplySaveRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

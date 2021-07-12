@@ -11,6 +11,10 @@ import java.util.Optional;
 // @Repository 생략 가능하다.
 public interface UserRepository extends JpaRepository<User, Integer> {
     Optional<User> findByUsername(String username);
+
+
+    @Query(value = "select * from user where username = ? and password = ?", nativeQuery = true)
+    User login(String username, String password);
 }
 
 
@@ -18,6 +22,5 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 // select * from user where username = ? and password = ?;
 //    User findByUsernameAndPassword(String username, String password);
 
-//    @Query(value = "select * from user where username = ? and password = ?", nativeQuery = true)
-//    User login(String username, String password);
+
 

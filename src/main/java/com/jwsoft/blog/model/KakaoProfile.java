@@ -1,4 +1,5 @@
 package com.jwsoft.blog.model;
+
 import lombok.Data;
 
 import lombok.Data;

@@ -16,6 +16,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder encoder;
 
+
     @Transactional
     public void 회원가입(User user) {
         String rawPassword = user.getPassword();
@@ -44,7 +45,6 @@ public class UserService {
         }
 
         persistance.setEmail(user.getEmail());
-
         // 회원 수정 함수 종료시 = 서비스 종료시 = 트랜잭션 종료 = commit 이 자동으로 된다.
         // 역속화된 persistanceUser 객체의 변화가 감지되면 더티체킹이 되어 update문을 날려준다.
     }

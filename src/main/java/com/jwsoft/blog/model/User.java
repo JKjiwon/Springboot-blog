@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -31,7 +32,7 @@ public class User {
     @Column(nullable = false, length = 50)
     private String email;
 
-     // @ColumnDefault("'USER'")
+    // @ColumnDefault("'USER'")
     // DB SMS RoleType이 없다
     @Enumerated(EnumType.STRING)
     private RoleType role; // Enum을 쓰는게 좋다. // ADMIN, USER 도메인(범위) 설정!!
